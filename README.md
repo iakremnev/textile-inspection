@@ -14,3 +14,10 @@ patches AUC | 0.970
 pathces F1 score | 0.948
 pixel AUC | 0.986
 pixel F1 score | 0.600
+
+
+## How to run
+
+```
+python infer.py --help
+```
