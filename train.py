@@ -17,9 +17,6 @@ datamodule = get_datamodule(config)
 datamodule.prepare_data()  # Downloads the dataset if it's not in the specified `root` directory
 datamodule.setup()  # Create train/val/test/prediction sets.
 
-# Set the export-mode to OpenVINO to create the OpenVINO IR model.
-config.optimization.export_mode = "openvino"
-
 model = get_model(config)
 callbacks = get_callbacks(config)
 
