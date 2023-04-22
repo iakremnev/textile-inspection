@@ -14,7 +14,7 @@ def infer_image(inferencer: OpenVINOInferencer, image_path: str, vis_all_predict
     predictions = inferencer.predict(image=image)
     
     if vis_all_predictions:
-        fig, axes = plt.subplots(2, 3)
+        fig, axes = plt.subplots(2, 3, figsize=(15, 10))
         axes[0,0].imshow(predictions.image)
         axes[0,1].imshow(predictions.segmentations)
         axes[1,0].imshow(predictions.anomaly_map)
@@ -30,7 +30,9 @@ def infer_image(inferencer: OpenVINOInferencer, image_path: str, vis_all_predict
         plt.savefig(save_to)
     
     else:
-        cv2.imwrite(save_to, predictions.segmentations)
+        output = predictions.segmentations
+        output = cv2.cvtColor(output, cv2.COLOR_RGB2BGR)
+        cv2.imwrite(save_to, output)
 
 
 def infer_camera_stream(inferencer: OpenVINOInferencer) -> None:
@@ -80,5 +82,4 @@ if __name__ == "__main__":
         image_paths = args.image
         os.makedirs("predictions", exist_ok=True)
         for image in image_paths:
-            infer_image(inferencer, image)
-    
+            infer_image(inferencer, image, vis_all_predictions=args.all)
