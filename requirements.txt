@@ -1,4 +1,4 @@
-anomalib==0.5.0.dev0
+git+https://github.com/openvinotoolkit/anomalib@4fe6c7457354f18d95f64fc4f81775836628c9ba
 # OpenVino deps
 networkx~=2.5
 onnx>=1.10.1
