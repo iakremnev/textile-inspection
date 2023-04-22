@@ -42,14 +42,16 @@ def infer_camera_stream(inferencer: OpenVINOInferencer, out_video_file: str) -> 
     out_cap = cv2.VideoWriter(out_video_file, cv2.VideoWriter_fourcc("M", "J", "P", "G"), 15, (frame_width, frame_height))
     
     try:
+        frame_number = 0
         while cap.isOpened():
             success, frame = cap.read()
+            frame_number += 1
 
             if success:
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 predictions = inferencer.predict(frame)
                 output = predictions.segmentations
-                print(i, predictions.pred_score)
+                print(frame_number, predictions.pred_score)
                 text_col = (255, 0, 0) if predictions.pred_label else (255, 0, 0)
                 cv2.putText(output, f"Anom={predictions.pred_label}", (5, 25), cv2.FONT_HERSHEY_SIMPLEX, 1, text_col, 2)
                 cv2.putText(output, f"Score={predictions.pred_score:.4f}", (5, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, text_col, 2)
