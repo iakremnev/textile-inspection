@@ -10,7 +10,7 @@ from anomalib.utils.callbacks import LoadModelCallback, get_callbacks
 
 CONFIG_PATH = os.path.join("models", "padim", "config.yaml")
 
-config = get_configurable_parameters(CONFIG_PATH)
+config = get_configurable_parameters(config_path=CONFIG_PATH)
 
 
 datamodule = get_datamodule(config)
