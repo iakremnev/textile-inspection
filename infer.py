@@ -60,7 +60,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("image", nargs="*")
     parser.add_argument("-m", "--model", help="Model dir with model.bin and metadata.json")
-    parser.add_argument("-a", "--all", help="Show all types of predictions")
+    parser.add_argument("-a", "--all", action="store_true", help="Show all types of predictions")
     parser.add_argument("-c", "--camera", action="store_true", help="Infer from webcam stream rather then image files")
 
     args = parser.parse_args()
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         infer_camera_stream(inferencer)
     else:
         image_paths = args.image
-        os.makedirs("predictions")
+        os.makedirs("predictions", exist_ok=True)
         for image in image_paths:
             infer_image(inferencer, image)
     
